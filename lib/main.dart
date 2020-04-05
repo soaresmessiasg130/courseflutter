@@ -93,21 +93,19 @@ class InputTextIcon extends StatelessWidget {
 }
 
 class ListPlaces extends StatelessWidget {
+  final List<Place> _places = List();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           title: Text("Know Before")
       ),
-      body: Column(
-        children: <Widget>[
-          ItemPlace(Place("Fortaleza", "Terra do Sol")),
-          ItemPlace(Place("Fortaleza", "Terra do Sol")),
-          ItemPlace(Place("Fortaleza", "Terra do Sol")),
-          ItemPlace(Place("Fortaleza", "Terra do Sol")),
-          ItemPlace(Place("Fortaleza", "Terra do Sol")),
-          ItemPlace(Place("Fortaleza", "Terra do Sol")),
-        ],
+      body: ListView.builder(
+        itemCount: _places.length,
+        itemBuilder: (context, i) {
+          final place = _places[i];
+          return ItemPlace(place); 
+        },
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -120,6 +118,7 @@ class ListPlaces extends StatelessWidget {
           future.then((item) {
             debugPrint('Entrou no Future!!!');
             debugPrint('$item');
+            _places.add(item);
           });
         },
       ),
