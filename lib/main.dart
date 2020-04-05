@@ -29,33 +29,15 @@ class RegisterPlace extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget> [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: TextField(
-                controller: _placeController,
-                style: TextStyle(
-                    fontSize: 18
-                ),
-                decoration: InputDecoration(
-                  icon: Icon(Icons.location_on),
-                  labelText: "Place name",
-                ),
-                keyboardType: TextInputType.text,
-              ),
+            InputTextIcon(
+              label: 'Place', 
+              controller: _placeController, 
+              icon: Icons.location_on
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: TextField(
-                controller: _descriptionController,
-                style: TextStyle(
-                    fontSize: 18
-                ),
-                decoration: InputDecoration(
-                  icon: Icon(Icons.speaker_notes),
-                  labelText: "Description of the place"
-                ),
-                keyboardType: TextInputType.text,
-              ),
+            InputTextIcon(
+              label: 'Description', 
+              controller: _descriptionController, 
+              icon: Icons.speaker_notes
             ),
             Padding(
               padding: const EdgeInsets.all(12.0),
@@ -83,8 +65,31 @@ class RegisterPlace extends StatelessWidget {
     );
   }
 }
+class InputTextIcon extends StatelessWidget {
+  final String label;
+  final TextEditingController controller;
+  final IconData icon;
+  InputTextIcon({this.label, this.controller, this.icon});
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: TextField(
+        controller: controller,
+        style: TextStyle(
+            fontSize: 18
+        ),
+        decoration: InputDecoration(
+          icon: Icon(icon),
+          labelText: label,
+        ),
+        keyboardType: TextInputType.text,
+      ),
+    );
+  }
+}
 
-class PlacesList extends StatelessWidget {
+class ListPlaces extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,11 +116,8 @@ class PlacesList extends StatelessWidget {
 }
 
 class ItemPlace extends StatelessWidget {
-
   final Place _place;
-
   ItemPlace(this._place);
-
   @override
   Widget build(BuildContext context) {
     return Card(
