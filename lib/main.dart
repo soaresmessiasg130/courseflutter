@@ -133,7 +133,7 @@ class ListPlacesState extends State<ListPlaces> {
           ));
           future.then((item) {
             Future.delayed(
-              Duration(seconds: 1),
+              Duration(milliseconds: 650),
               (){
                 if (item != null) {
                   setState((){
@@ -158,16 +158,7 @@ class ItemPlace extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Row(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Text('1'),
-                Icon(Icons.monetization_on),
-              ],
-            ),
-          ],
-        ),
+        leading: Icon(Icons.location_on),
         title: Text(_place.placeTitle.toString()),
         subtitle: Text(_place.placeDescription.toString()),
       ),
