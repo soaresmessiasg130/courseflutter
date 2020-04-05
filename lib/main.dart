@@ -34,26 +34,28 @@ class RegisterPlaceState extends State<RegisterPlace> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget> [
-            InputTextIcon(
-              label: 'Place', 
-              controller: _placeController, 
-              icon: Icons.location_on
-            ),
-            InputTextIcon(
-              label: 'Description', 
-              controller: _descriptionController, 
-              icon: Icons.speaker_notes
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: RaisedButton(
-                child: Text("Save"),
-                onPressed: () => _createPlaceItem(context),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget> [
+              InputTextIcon(
+                label: 'Place', 
+                controller: _placeController, 
+                icon: Icons.location_on
               ),
-            )
-          ]
+              InputTextIcon(
+                label: 'Description', 
+                controller: _descriptionController, 
+                icon: Icons.speaker_notes
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: RaisedButton(
+                  child: Text("Save"),
+                  onPressed: () => _createPlaceItem(context),
+                ),
+              )
+            ]
+          ),
         ),
       ),
     );
@@ -134,9 +136,11 @@ class ListPlacesState extends State<ListPlaces> {
               Duration(seconds: 1),
               (){
                 if (item != null) {
-                  debugPrint('Entrou no Future!!!');
-                  debugPrint('$item');
-                  widget._places.add(item);
+                  setState((){
+                    debugPrint('Entrou no Future!!!');
+                    debugPrint('$item');
+                    widget._places.add(item);
+                  });
                 }
               }
             );
@@ -154,7 +158,16 @@ class ItemPlace extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Icon(Icons.monetization_on),
+        leading: Row(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text('1'),
+                Icon(Icons.monetization_on),
+              ],
+            ),
+          ],
+        ),
         title: Text(_place.placeTitle.toString()),
         subtitle: Text(_place.placeDescription.toString()),
       ),
