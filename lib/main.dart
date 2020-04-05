@@ -80,7 +80,7 @@ class InputTextIcon extends StatelessWidget {
             fontSize: 18
         ),
         decoration: InputDecoration(
-          icon: Icon(icon),
+          icon: icon != null ? Icon(icon) : null,
           labelText: label,
         ),
         keyboardType: TextInputType.text,
