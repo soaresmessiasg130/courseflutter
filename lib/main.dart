@@ -16,9 +16,16 @@ class KnowBefore extends StatelessWidget {
   }
 }
 
-class RegisterPlace extends StatelessWidget {
+class RegisterPlace extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return RegisterPlaceState();
+  }
+}
+
+class RegisterPlaceState extends State<RegisterPlace> {
   final TextEditingController _placeController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController(); 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,8 +99,15 @@ class InputTextIcon extends StatelessWidget {
   }
 }
 
-class ListPlaces extends StatelessWidget {
+class ListPlaces extends StatefulWidget {
   final List<Place> _places = List();
+  @override
+  State<StatefulWidget> createState() {
+    return ListPlacesState();
+  }
+}
+
+class ListPlacesState extends State<ListPlaces> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,9 +115,9 @@ class ListPlaces extends StatelessWidget {
           title: Text("Know Before")
       ),
       body: ListView.builder(
-        itemCount: _places.length,
+        itemCount: widget._places.length,
         itemBuilder: (context, i) {
-          final place = _places[i];
+          final place = widget._places[i];
           return ItemPlace(place); 
         },
       ),
@@ -116,9 +130,16 @@ class ListPlaces extends StatelessWidget {
             }
           ));
           future.then((item) {
-            debugPrint('Entrou no Future!!!');
-            debugPrint('$item');
-            _places.add(item);
+            Future.delayed(
+              Duration(seconds: 1),
+              (){
+                if (item != null) {
+                  debugPrint('Entrou no Future!!!');
+                  debugPrint('$item');
+                  widget._places.add(item);
+                }
+              }
+            );
           });
         },
       ),
