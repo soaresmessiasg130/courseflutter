@@ -2,6 +2,10 @@
 
 Know places before visiting then
 
+## by Messias Soares - Development with Flutter
+
+- This Application makes new experiences for the tourists
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
