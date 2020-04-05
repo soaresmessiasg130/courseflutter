@@ -10,7 +10,7 @@ class KnowBefore extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: RegisterPlace(),
+        body: ListPlaces(),
       )
     );
   }
@@ -43,20 +43,7 @@ class RegisterPlace extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: RaisedButton(
                 child: Text("Save"),
-                onPressed: () {
-                  print('Clicou no botão--->>Valores:\n');
-                  final String _place = _placeController.text;
-                  _placeController.text = '';
-                  final String _description = _descriptionController.text;
-                  _descriptionController.text = '';
-                  if (_place != null && _place.isNotEmpty && _description != null && _description.isNotEmpty) {
-                    final _placeView = Place(_place, _description);
-                    debugPrint('$_placeView');
-                  } else {
-                    _placeController.text = 'SET PLACE';
-                    _descriptionController.text = 'SET DESCRIPTION';
-                  }
-                },
+                onPressed: () => _createPlaceItem(context),
               ),
             )
           ]
@@ -64,7 +51,23 @@ class RegisterPlace extends StatelessWidget {
       ),
     );
   }
+  void _createPlaceItem (BuildContext context) {
+    print('Clicou no botão--->>Valores:\n');
+    final String _place = _placeController.text;
+    _placeController.text = '';
+    final String _description = _descriptionController.text;
+    _descriptionController.text = '';
+    if (_place != null && _place.isNotEmpty && _description != null && _description.isNotEmpty) {
+      final _placeView = Place(_place, _description);
+      debugPrint('$_placeView');
+      Navigator.pop(context, _placeView);
+    } else {
+      _placeController.text = 'SET PLACE';
+      _descriptionController.text = 'SET DESCRIPTION';
+    }
+  }
 }
+
 class InputTextIcon extends StatelessWidget {
   final String label;
   final TextEditingController controller;
@@ -104,12 +107,21 @@ class ListPlaces extends StatelessWidget {
           ItemPlace(Place("Fortaleza", "Terra do Sol")),
           ItemPlace(Place("Fortaleza", "Terra do Sol")),
           ItemPlace(Place("Fortaleza", "Terra do Sol")),
-          ItemPlace(Place("Fortaleza", "Terra do Sol")),
-          ItemPlace(Place("Fortaleza", "Terra do Sol")),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
+        onPressed: () {
+          final Future<Place> future = Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return RegisterPlace();
+            }
+          ));
+          future.then((item) {
+            debugPrint('Entrou no Future!!!');
+            debugPrint('$item');
+          });
+        },
       ),
     );
   }
