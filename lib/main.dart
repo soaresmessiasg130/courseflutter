@@ -9,9 +9,18 @@ class KnowBefore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: ListPlaces(),
-      )
+      theme: ThemeData(
+        primaryColor: Colors.blueGrey[600],
+        accentColor: Colors.cyanAccent[700],
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.blueGrey[600],
+          textTheme: ButtonTextTheme.primary
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.cyanAccent[700]
+        ),
+      ),
+      home: ListPlaces(),
     );
   }
 }
