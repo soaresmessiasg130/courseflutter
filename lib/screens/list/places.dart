@@ -6,20 +6,26 @@ import 'package:knowbefore/components/list/item.dart';
 import 'package:knowbefore/models/place.dart';
 import 'package:knowbefore/screens/register/register.dart';
 
+const _titleAppBar = "Know Before";
+
 class ListPlaces extends StatefulWidget {
+
   final List<Place> _places = List();
+
   @override
   State<StatefulWidget> createState() {
     return ListPlacesState();
   }
+
 }
 
 class ListPlacesState extends State<ListPlaces> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("Know Before")
+          title: Text(_titleAppBar)
       ),
       body: ListView.builder(
         itemCount: widget._places.length,
@@ -31,27 +37,22 @@ class ListPlacesState extends State<ListPlaces> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          final Future<Place> future = Navigator.push(context, MaterialPageRoute(
-            builder: (context) {
-              return RegisterPlace();
-            }
-          ));
-          future.then((item) {
-            Future.delayed(
-              Duration(milliseconds: 650),
-              (){
-                if (item != null) {
-                  setState((){
-                    debugPrint('Entrou no Future!!!');
-                    debugPrint('$item');
-                    widget._places.add(item);
-                  });
-                }
-              }
-            );
-          });
+          Navigator.push(
+            context, 
+            MaterialPageRoute(
+              builder: (context) => RegisterPlace()
+          )).then((item) =>_reloadList(item));
         },
       ),
     );
   }
+
+  void _reloadList(Place place) {
+    if (place != null) {
+      setState((){
+        widget._places.add(place);
+      });
+    }
+  }
+
 }

@@ -4,10 +4,17 @@
 import 'package:flutter/material.dart';
 
 class InputTextIcon extends StatelessWidget {
+
   final String label;
   final TextEditingController controller;
   final IconData icon;
-  InputTextIcon({this.label, this.controller, this.icon});
+
+  InputTextIcon({
+    this.label, 
+    this.controller, 
+    this.icon
+  });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,4 +32,5 @@ class InputTextIcon extends StatelessWidget {
       ),
     );
   }
+
 }

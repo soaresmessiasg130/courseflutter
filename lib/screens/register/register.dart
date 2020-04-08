@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:knowbefore/components/input_text_icon.dart';
 import 'package:knowbefore/models/place.dart';
 
+const _titleRegister = 'Register an place';
+const _labelPlace = 'Place';
+const _labelDescription = 'Description';
+const _buttonText = 'Save';
+
 class RegisterPlace extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -19,7 +24,7 @@ class RegisterPlaceState extends State<RegisterPlace> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Register a place"),
+        title: Text(_titleRegister),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -27,19 +32,19 @@ class RegisterPlaceState extends State<RegisterPlace> {
           child: Column(
             children: <Widget> [
               InputTextIcon(
-                label: 'Place', 
+                label: _labelPlace, 
                 controller: _placeController, 
                 icon: Icons.location_on
               ),
               InputTextIcon(
-                label: 'Description', 
+                label: _labelDescription, 
                 controller: _descriptionController, 
                 icon: Icons.speaker_notes
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: RaisedButton(
-                  child: Text("Save"),
+                  child: Text(_buttonText),
                   onPressed: () => _createPlaceItem(context),
                 ),
               )
@@ -49,19 +54,16 @@ class RegisterPlaceState extends State<RegisterPlace> {
       ),
     );
   }
+
   void _createPlaceItem (BuildContext context) {
-    print('Clicou no botão--->>Valores:\n');
+
     final String _place = _placeController.text;
-    _placeController.text = '';
     final String _description = _descriptionController.text;
-    _descriptionController.text = '';
-    if (_place != null && _place.isNotEmpty && _description != null && _description.isNotEmpty) {
-      final _placeView = Place(_place, _description);
-      debugPrint('$_placeView');
-      Navigator.pop(context, _placeView);
-    } else {
-      _placeController.text = 'SET PLACE';
-      _descriptionController.text = 'SET DESCRIPTION';
-    }
+
+    if (!_place.isEmpty && _place != 'Cannot be empty')
+      if (!_description.isEmpty && _description != 'Cannot be empty')
+        Navigator.pop(context, Place(_place, _description));
+      else _descriptionController.text = 'Cannot be empty!';
+    else _placeController.text = 'Cannot be empty!';
   }
 }

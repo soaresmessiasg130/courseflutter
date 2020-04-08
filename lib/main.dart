@@ -7,6 +7,7 @@ void main() => runApp(
 );
 
 class KnowBefore extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,4 +25,5 @@ class KnowBefore extends StatelessWidget {
       home: ListPlaces(),
     );
   }
+
 }
