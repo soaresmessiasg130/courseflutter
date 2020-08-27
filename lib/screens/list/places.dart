@@ -13,9 +13,7 @@ class ListPlaces extends StatefulWidget {
   final List<Place> _places = List();
 
   @override
-  State<StatefulWidget> createState() {
-    return ListPlacesState();
-  }
+  State<StatefulWidget> createState() => ListPlacesState();
 }
 
 class ListPlacesState extends State<ListPlaces> {
@@ -26,17 +24,20 @@ class ListPlacesState extends State<ListPlaces> {
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-//          Expanded(
-////            child: Dashboard()
-//          ),
+          // Expanded(
+          //   child: Dashboard(),
+          // ),
           Expanded(
             child: Container(
               margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.4),
+                top: MediaQuery.of(context).size.height * 0.1,
+              ),
               decoration: BoxDecoration(
-                  color: Colors.blueGrey[100],
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(40))),
+                color: Colors.blueGrey[100],
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(40),
+                ),
+              ),
               child: ListView.builder(
                 itemCount: widget._places.length,
                 itemBuilder: (context, i) {
@@ -50,11 +51,12 @@ class ListPlacesState extends State<ListPlaces> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => RegisterPlace()))
-              .then((item) => _reloadList(item));
-        },
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RegisterPlace(),
+          ),
+        ).then((item) => _reloadList(item)),
       ),
     );
   }

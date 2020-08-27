@@ -1,4 +1,3 @@
-
 //Página de Cadastro de um novo Local
 
 import 'package:flutter/material.dart';
@@ -9,17 +8,17 @@ const _titleRegister = 'Register an place';
 const _labelPlace = 'Place';
 const _labelDescription = 'Description';
 const _buttonText = 'Save';
+const _cbe = 'Cannot be empty!';
 
 class RegisterPlace extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return RegisterPlaceState();
-  }
+  State<StatefulWidget> createState() => _RegisterPlaceState();
 }
 
-class RegisterPlaceState extends State<RegisterPlace> {
+class _RegisterPlaceState extends State<RegisterPlace> {
   final TextEditingController _placeController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController(); 
+  final TextEditingController _descriptionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,16 +29,16 @@ class RegisterPlaceState extends State<RegisterPlace> {
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
-            children: <Widget> [
+            children: <Widget>[
               InputTextIcon(
-                label: _labelPlace, 
-                controller: _placeController, 
-                icon: Icons.location_on
+                label: _labelPlace,
+                controller: _placeController,
+                icon: Icons.location_on,
               ),
               InputTextIcon(
-                label: _labelDescription, 
-                controller: _descriptionController, 
-                icon: Icons.speaker_notes
+                label: _labelDescription,
+                controller: _descriptionController,
+                icon: Icons.speaker_notes,
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -48,22 +47,25 @@ class RegisterPlaceState extends State<RegisterPlace> {
                   onPressed: () => _createPlaceItem(context),
                 ),
               )
-            ]
+            ],
           ),
         ),
       ),
     );
   }
 
-  void _createPlaceItem (BuildContext context) {
-
+  void _createPlaceItem(BuildContext context) {
     final String _place = _placeController.text;
     final String _description = _descriptionController.text;
 
-    if (!_place.isEmpty && _place != 'Cannot be empty')
-      if (!_description.isEmpty && _description != 'Cannot be empty')
+    if (_place.isNotEmpty && _place != _cbe) {
+      if (_description.isNotEmpty && _description != _cbe) {
         Navigator.pop(context, Place(_place, _description));
-      else _descriptionController.text = 'Cannot be empty!';
-    else _placeController.text = 'Cannot be empty!';
+      } else {
+        _descriptionController.text = _cbe;
+      }
+    } else {
+      _placeController.text = _cbe;
+    }
   }
 }
